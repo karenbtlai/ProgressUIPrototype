@@ -4,7 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 
-namespace ProgressUIPrototype2
+namespace ProgressUIPrototype
 {
     public sealed class ProgressUI : RangeBase
     {

@@ -1,7 +1,7 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI;
 
-namespace ProgressUIPrototype2
+namespace ProgressUIPrototype
 {
     public class ProgressUITemplateSettings : DependencyObject
     {
