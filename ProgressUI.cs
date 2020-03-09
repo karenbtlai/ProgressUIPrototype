@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Media;
 
 namespace ProgressUIPrototype
 {
-    public sealed class ProgressUI : RangeBase
+    public class ProgressUI : RangeBase
     {
         public ProgressUI()
         {
@@ -80,6 +80,34 @@ namespace ProgressUIPrototype
         private static void OnIsIndeterminateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             VisualStateManager.GoToState((ProgressUI)d, (bool)e.NewValue ? "Indeterminate" : "Normal", true);
+        }
+
+        public bool ShowPaused
+        {
+            get { return (bool)GetValue(ShowPausedProperty); }
+            set { SetValue(ShowPausedProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShowPausedProperty =
+            DependencyProperty.Register("IsIndeterminate", typeof(bool), typeof(ProgressUI), new PropertyMetadata(false, new PropertyChangedCallback(OnShowPausedChanged)));
+
+        private static void OnShowPausedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            VisualStateManager.GoToState((ProgressUI)d, (bool)e.NewValue ? "ShowPaused" : "Normal", true);
+        }
+
+        public bool ShowError
+        {
+            get { return (bool)GetValue(ShowErrorProperty); }
+            set { SetValue(ShowErrorProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShowErrorProperty =
+            DependencyProperty.Register("IsIndeterminate", typeof(bool), typeof(ProgressUI), new PropertyMetadata(false, new PropertyChangedCallback(OnShowErrorChanged)));
+
+        private static void OnShowErrorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            VisualStateManager.GoToState((ProgressUI)d, (bool)e.NewValue ? "ShowError" : "Normal", true);
         }
 
         public float StrokeWidth
