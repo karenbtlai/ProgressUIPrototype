@@ -29,14 +29,14 @@ namespace ProgressUIPrototype
             set { SetValue(DeterminateAnimationSourceProperty, value); }
         }
 
-        public static readonly DependencyProperty DeterminateAnimationSourceProperty = DependencyProperty.Register("Source", typeof(IAnimatedVisualSource), typeof(ProgressUI), new PropertyMetadata(null, new PropertyChangedCallback(OnDeterminateAnimationSourceChanged)));
+        public static readonly DependencyProperty DeterminateAnimationSourceProperty = DependencyProperty.Register("DeterminateAnimationSource", typeof(IAnimatedVisualSource), typeof(ProgressUI), new PropertyMetadata(null, new PropertyChangedCallback(OnDeterminateAnimationSourceChanged)));
 
         public static void OnDeterminateAnimationSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            AnimatedVisualPlayer player = new AnimatedVisualPlayer();
+            //AnimatedVisualPlayer player = new AnimatedVisualPlayer();
             
-            player.Source = e.NewValue as IAnimatedVisualSource;
-            _ = player.PlayAsync(0, 1, true);
+            //player.Source = e.NewValue as IAnimatedVisualSource;
+            //_ = player.PlayAsync(0, 1, true);
         }
 
         public IAnimatedVisualSource IndeterminateAnimationSource
@@ -45,14 +45,14 @@ namespace ProgressUIPrototype
             set { SetValue(IndeterminateAnimationSourceProperty, value); }
         }
 
-        public static readonly DependencyProperty IndeterminateAnimationSourceProperty = DependencyProperty.Register("Source", typeof(IAnimatedVisualSource), typeof(LottieProgressUI), new PropertyMetadata(null, new PropertyChangedCallback(OnIndeterminateAnimationSourceChanged)));
+        public static readonly DependencyProperty IndeterminateAnimationSourceProperty = DependencyProperty.Register("IndeterminateAnimationSource", typeof(IAnimatedVisualSource), typeof(LottieProgressUI), new PropertyMetadata(null, new PropertyChangedCallback(OnIndeterminateAnimationSourceChanged)));
 
         public static void OnIndeterminateAnimationSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            AnimatedVisualPlayer player = new AnimatedVisualPlayer();
-
-            player.Source = e.NewValue as IAnimatedVisualSource;
-            _ = player.PlayAsync(0, 1, true);
+            //AnimatedVisualPlayer player = new AnimatedVisualPlayer();
+            
+            //player.Source = e.NewValue as IAnimatedVisualSource;
+            //_ = player.PlayAsync(0, 1, true);
         }
     }
 }
