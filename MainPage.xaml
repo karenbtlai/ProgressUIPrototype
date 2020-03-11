@@ -35,6 +35,9 @@
                 <local:LottieProgressUI.IndeterminateAnimationSource>
                     <local:IndeterminateRing/>
                 </local:LottieProgressUI.IndeterminateAnimationSource>
+                <local:LottieProgressUI.DeterminateAnimationSource>
+                    <local:DeterminateRing/>
+                </local:LottieProgressUI.DeterminateAnimationSource>
             </local:LottieProgressUI>
         </StackPanel>
     </Grid>
