@@ -4,11 +4,23 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace ProgressUIPrototype
 {
-    public class LottieProgressUI : ProgressUI
+    public sealed class LottieProgressUI : ProgressUI
     {
         public LottieProgressUI()
         {
             this.DefaultStyleKey = typeof(LottieProgressUI);
+        }
+
+        protected override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            
+                        
+        }
+
+        private static void OnIsIndeterminateChanged()
+        {
+
         }
 
         public IAnimatedVisualSource DeterminateAnimationSource
@@ -17,14 +29,30 @@ namespace ProgressUIPrototype
             set { SetValue(DeterminateAnimationSourceProperty, value); }
         }
 
-        public static readonly DependencyProperty DeterminateAnimationSourceProperty = DependencyProperty.Register("Source", typeof(IAnimatedVisualSource), typeof(LottieProgressUI), new PropertyMetadata(null, new PropertyChangedCallback(OnDeterminateAnimationSourceChanged)));
+        public static readonly DependencyProperty DeterminateAnimationSourceProperty = DependencyProperty.Register("Source", typeof(IAnimatedVisualSource), typeof(ProgressUI), new PropertyMetadata(null, new PropertyChangedCallback(OnDeterminateAnimationSourceChanged)));
 
         public static void OnDeterminateAnimationSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as AnimatedVisualPlayer).Source = e.NewValue as IAnimatedVisualSource;
+            AnimatedVisualPlayer player = new AnimatedVisualPlayer();
+            
+            player.Source = e.NewValue as IAnimatedVisualSource;
+            _ = player.PlayAsync(0, 1, true);
+        }
+
+        public IAnimatedVisualSource IndeterminateAnimationSource
+        {
+            get { return (IAnimatedVisualSource)GetValue(IndeterminateAnimationSourceProperty); }
+            set { SetValue(IndeterminateAnimationSourceProperty, value); }
+        }
+
+        public static readonly DependencyProperty IndeterminateAnimationSourceProperty = DependencyProperty.Register("Source", typeof(IAnimatedVisualSource), typeof(LottieProgressUI), new PropertyMetadata(null, new PropertyChangedCallback(OnIndeterminateAnimationSourceChanged)));
+
+        public static void OnIndeterminateAnimationSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            AnimatedVisualPlayer player = new AnimatedVisualPlayer();
+
+            player.Source = e.NewValue as IAnimatedVisualSource;
+            _ = player.PlayAsync(0, 1, true);
         }
     }
-
-    //public IAnimatedVisualSource DeterminateAnimation { get; set; }
-    //Public IAnimatedVisualSource IndeterminateAnimation { get; set; }
 }

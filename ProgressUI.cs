@@ -89,7 +89,7 @@ namespace ProgressUIPrototype
         }
 
         public static readonly DependencyProperty ShowPausedProperty =
-            DependencyProperty.Register("IsIndeterminate", typeof(bool), typeof(ProgressUI), new PropertyMetadata(false, new PropertyChangedCallback(OnShowPausedChanged)));
+            DependencyProperty.Register("ShowPaused", typeof(bool), typeof(ProgressUI), new PropertyMetadata(false, new PropertyChangedCallback(OnShowPausedChanged)));
 
         private static void OnShowPausedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -103,7 +103,7 @@ namespace ProgressUIPrototype
         }
 
         public static readonly DependencyProperty ShowErrorProperty =
-            DependencyProperty.Register("IsIndeterminate", typeof(bool), typeof(ProgressUI), new PropertyMetadata(false, new PropertyChangedCallback(OnShowErrorChanged)));
+            DependencyProperty.Register("ShowPaused", typeof(bool), typeof(ProgressUI), new PropertyMetadata(false, new PropertyChangedCallback(OnShowErrorChanged)));
 
         private static void OnShowErrorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
