@@ -35,7 +35,8 @@
                         <local:AnimatedVisualPlayerProposed 
                             x:Name="DeterminatePlayer" 
                             Visibility="Collapsed"
-                            Position="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ProgressPosition}"
+                            Position="{Binding RelativeSource={RelativeSource TemplatedParent}, 
+        Path=TemplateSettings.ProgressPosition}"
                             Source="{TemplateBinding DeterminateAnimationSource}">
                         </local:AnimatedVisualPlayerProposed>
 

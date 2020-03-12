@@ -13,15 +13,18 @@ namespace ProgressUIPrototype
             this.DefaultStyleKey = typeof(ProgressUI);
         }
 
-        public ProgressUITemplateSettings templateSettings { get; } = new ProgressUITemplateSettings();
+        public ProgressUITemplateSettings TemplateSettings { get; } = new ProgressUITemplateSettings();
 
         protected override void OnValueChanged(double oldValue, double newValue)
         {
             base.OnValueChanged(oldValue, newValue);
 
             var value = Value / (Maximum - Minimum);
-            Debug.Write("Setting Value: " + value);
-            templateSettings.ProgressPosition = value;
+            Debug.WriteLine("Setting Value: " + value);
+            TemplateSettings.ProgressPosition = value;
+
+            // TODO : If we want to go down the path of supporting storyboards, 
+            // we can set templateSetings.arc* properties etc here.
         }
 
         protected override void OnApplyTemplate()
@@ -35,21 +38,22 @@ namespace ProgressUIPrototype
             if (Foreground is SolidColorBrush)
             {
                 var foreground = (Foreground as SolidColorBrush);
-                templateSettings.ForegroundColor = foreground.Color;
-                RegisterPropertyChangedCallback(ForegroundProperty, new Windows.UI.Xaml.DependencyPropertyChangedCallback(OnForegroundChanged));
+                RegisterPropertyChangedCallback(ForegroundProperty,
+                    new DependencyPropertyChangedCallback(OnForegroundChanged));
 
-                foreground.RegisterPropertyChangedCallback(SolidColorBrush.ColorProperty, new Windows.UI.Xaml.DependencyPropertyChangedCallback(OnForegroundChanged));
+                foreground.RegisterPropertyChangedCallback(SolidColorBrush.ColorProperty,
+                    new DependencyPropertyChangedCallback(OnForegroundChanged));
             }
 
             if (Background is SolidColorBrush)
             {
                 var background = (Background as SolidColorBrush);
-                templateSettings.BackgroundColor = background.Color;
+                TemplateSettings.BackgroundColor = background.Color;
                 RegisterPropertyChangedCallback(BackgroundProperty,
-                   new Windows.UI.Xaml.DependencyPropertyChangedCallback(OnBackgroundChanged));
+                   new DependencyPropertyChangedCallback(OnBackgroundChanged));
 
                 background.RegisterPropertyChangedCallback(SolidColorBrush.ColorProperty,
-                    new Windows.UI.Xaml.DependencyPropertyChangedCallback(OnBackgroundChanged));
+                    new DependencyPropertyChangedCallback(OnBackgroundChanged));
             }
         }
 
@@ -57,7 +61,7 @@ namespace ProgressUIPrototype
         {
             if (Foreground is SolidColorBrush)
             {
-                templateSettings.ForegroundColor = (Foreground as SolidColorBrush).Color;
+                TemplateSettings.ForegroundColor = (Foreground as SolidColorBrush).Color;
             }
         }
 
@@ -65,7 +69,7 @@ namespace ProgressUIPrototype
         {
             if (Background is SolidColorBrush)
             {
-                templateSettings.BackgroundColor = (Background as SolidColorBrush).Color;
+                TemplateSettings.BackgroundColor = (Background as SolidColorBrush).Color;
             }
         }
 
@@ -75,11 +79,12 @@ namespace ProgressUIPrototype
             set { SetValue(IsIndeterminateProperty, value); }
         }
 
-        public static readonly DependencyProperty IsIndeterminateProperty = DependencyProperty.Register("IsIndeterminate", typeof(bool), typeof(ProgressUI), new PropertyMetadata(false, new PropertyChangedCallback(OnIsIndeterminateChanged)));
+        public static readonly DependencyProperty IsIndeterminateProperty =
+            DependencyProperty.Register("IsIndeterminate", typeof(bool), typeof(ProgressUI), new PropertyMetadata(false, new PropertyChangedCallback(OnIsIndeterminateChanged)));
 
         private static void OnIsIndeterminateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            VisualStateManager.GoToState((ProgressUI)d, (bool)e.NewValue ? "Indeterminate" : "Normal", true);
+            VisualStateManager.GoToState((ProgressUI)d, (bool)e.NewValue ? "Indeterminate" : "Determinate", true);
         }
 
         public bool ShowPaused
@@ -103,7 +108,7 @@ namespace ProgressUIPrototype
         }
 
         public static readonly DependencyProperty ShowErrorProperty =
-            DependencyProperty.Register("ShowPaused", typeof(bool), typeof(ProgressUI), new PropertyMetadata(false, new PropertyChangedCallback(OnShowErrorChanged)));
+            DependencyProperty.Register("ShowError", typeof(bool), typeof(ProgressUI), new PropertyMetadata(false, new PropertyChangedCallback(OnShowErrorChanged)));
 
         private static void OnShowErrorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -116,6 +121,7 @@ namespace ProgressUIPrototype
             set { SetValue(StrokeWidthProperty, value); }
         }
 
-        public static readonly DependencyProperty StrokeWidthProperty = DependencyProperty.Register("StrokeWidth", typeof(float), typeof(ProgressUI), new PropertyMetadata((float)1.0));
+        public static readonly DependencyProperty StrokeWidthProperty =
+            DependencyProperty.Register("StrokeWidth", typeof(float), typeof(ProgressUI), new PropertyMetadata((float)1.0));
     }
 }
