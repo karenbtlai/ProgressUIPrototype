@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Data;
 
 namespace ProgressUIPrototype
 {
@@ -123,5 +125,26 @@ namespace ProgressUIPrototype
 
         public static readonly DependencyProperty StrokeWidthProperty =
             DependencyProperty.Register("StrokeWidth", typeof(float), typeof(ProgressUI), new PropertyMetadata((float)1.0));
+
+    }
+
+    public class ProgressBarWidthConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType,
+            object parameter, String language)
+        {
+            double ProgressBarWidth;
+            double.TryParse((string)parameter, out ProgressBarWidth);
+            double ProgressPosition;
+            double.TryParse(value.ToString(), out ProgressPosition);
+            return ProgressPosition * 100.0;
+        }
+
+        // No need to implement converting back on a one-way binding 
+        public object ConvertBack(object value, Type targetType,
+            object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

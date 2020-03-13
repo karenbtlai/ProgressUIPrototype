@@ -11,11 +11,6 @@ namespace ProgressUIPrototype
             this.DefaultStyleKey = typeof(LottieProgressUI);
         }
 
-        //protected override void OnApplyTemplate()
-        //{
-        //    base.OnApplyTemplate();
-        //}
-
         public IAnimatedVisualSource DeterminateAnimationSource
         {
             get { return (IAnimatedVisualSource)GetValue(DeterminateAnimationSourceProperty); }
