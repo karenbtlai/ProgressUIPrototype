@@ -15,7 +15,7 @@ namespace ProgressUIPrototype
             this.DefaultStyleKey = typeof(ProgressUI);
         }
 
-        public ProgressUITemplateSettings TemplateSettings { get; } = new ProgressUITemplateSettings();
+        public ProgressUITemplateSettings ProgressUITemplateSettings { get; } = new ProgressUITemplateSettings();
 
         protected override void OnValueChanged(double oldValue, double newValue)
         {
@@ -23,7 +23,7 @@ namespace ProgressUIPrototype
 
             var value = Value / (Maximum - Minimum);
             Debug.WriteLine("Setting Value: " + value);
-            TemplateSettings.ProgressPosition = value;
+            ProgressUITemplateSettings.ProgressPosition = value;
 
             // TODO : If we want to go down the path of supporting storyboards, 
             // we can set templateSetings.arc* properties etc here.
@@ -32,47 +32,6 @@ namespace ProgressUIPrototype
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            RegisterAndUpdateColors();
-        }
-
-        private void RegisterAndUpdateColors()
-        {
-            if (Foreground is SolidColorBrush)
-            {
-                var foreground = (Foreground as SolidColorBrush);
-                RegisterPropertyChangedCallback(ForegroundProperty,
-                    new DependencyPropertyChangedCallback(OnForegroundChanged));
-
-                foreground.RegisterPropertyChangedCallback(SolidColorBrush.ColorProperty,
-                    new DependencyPropertyChangedCallback(OnForegroundChanged));
-            }
-
-            if (Background is SolidColorBrush)
-            {
-                var background = (Background as SolidColorBrush);
-                TemplateSettings.BackgroundColor = background.Color;
-                RegisterPropertyChangedCallback(BackgroundProperty,
-                   new DependencyPropertyChangedCallback(OnBackgroundChanged));
-
-                background.RegisterPropertyChangedCallback(SolidColorBrush.ColorProperty,
-                    new DependencyPropertyChangedCallback(OnBackgroundChanged));
-            }
-        }
-
-        private void OnForegroundChanged(DependencyObject sender, DependencyProperty dp)
-        {
-            if (Foreground is SolidColorBrush)
-            {
-                TemplateSettings.ForegroundColor = (Foreground as SolidColorBrush).Color;
-            }
-        }
-
-        private void OnBackgroundChanged(DependencyObject sender, DependencyProperty dp)
-        {
-            if (Background is SolidColorBrush)
-            {
-                TemplateSettings.BackgroundColor = (Background as SolidColorBrush).Color;
-            }
         }
 
         public bool IsIndeterminate

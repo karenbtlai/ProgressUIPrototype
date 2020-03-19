@@ -1,6 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace ProgressUIPrototype
 {
@@ -9,6 +10,54 @@ namespace ProgressUIPrototype
         public LottieProgressUI()
         {
             this.DefaultStyleKey = typeof(LottieProgressUI);
+        }
+
+        public LottieProgressUITemplateSettings LottieProgressUITemplateSettings { get; } = new LottieProgressUITemplateSettings();
+
+        protected override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            RegisterAndUpdateColors();
+        }
+
+        private void RegisterAndUpdateColors()
+        {
+            if (Foreground is SolidColorBrush)
+            {
+                var foreground = (Foreground as SolidColorBrush);
+                RegisterPropertyChangedCallback(ForegroundProperty,
+                    new DependencyPropertyChangedCallback(OnForegroundChanged));
+
+                foreground.RegisterPropertyChangedCallback(SolidColorBrush.ColorProperty,
+                    new DependencyPropertyChangedCallback(OnForegroundChanged));
+            }
+
+            if (Background is SolidColorBrush)
+            {
+                var background = (Background as SolidColorBrush);
+                LottieProgressUITemplateSettings.BackgroundColor = background.Color;
+                RegisterPropertyChangedCallback(BackgroundProperty,
+                   new DependencyPropertyChangedCallback(OnBackgroundChanged));
+
+                background.RegisterPropertyChangedCallback(SolidColorBrush.ColorProperty,
+                    new DependencyPropertyChangedCallback(OnBackgroundChanged));
+            }
+        }
+
+        private void OnForegroundChanged(DependencyObject sender, DependencyProperty dp)
+        {
+            if (Foreground is SolidColorBrush)
+            {
+                LottieProgressUITemplateSettings.ForegroundColor = (Foreground as SolidColorBrush).Color;
+            }
+        }
+
+        private void OnBackgroundChanged(DependencyObject sender, DependencyProperty dp)
+        {
+            if (Background is SolidColorBrush)
+            {
+                LottieProgressUITemplateSettings.BackgroundColor = (Background as SolidColorBrush).Color;
+            }
         }
 
         public IAnimatedVisualSource DeterminateAnimationSource

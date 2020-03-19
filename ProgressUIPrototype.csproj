@@ -123,6 +123,7 @@
     <Compile Include="LottieAnimations\DeterminateRing.cs" />
     <Compile Include="LottieAnimations\IndeterminateRing.cs" />
     <Compile Include="LottieProgressUI.cs" />
+    <Compile Include="LottieProgressUITemplateSettings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
