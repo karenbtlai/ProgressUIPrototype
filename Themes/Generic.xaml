@@ -19,6 +19,16 @@
                                 <VisualState x:Name="Normal" />
                                 <VisualState x:Name="Indeterminate">
                                     <VisualState.Setters>
+                                        
+                                        <!--<Setter Target="IndeterminatePlayer.Source">
+                                            <Setter.Value>
+                                                <local:IndeterminateRing
+                                                    Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LottieProgressUITemplateSettings.ForegroundColor}"
+                                                    Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LottieProgressUITemplateSettings.BackgroundColor}"
+                                                    />
+                                            </Setter.Value>
+                                            
+                                        </Setter>-->
                                         <Setter Target="DeterminatePlayer.Visibility" Value="Collapsed"/>
                                         <Setter Target="IndeterminatePlayer.Visibility" Value="Visible"/>
                                         <Setter Target="IndeterminatePlayer.IsLooping" Value="True" />
@@ -38,8 +48,9 @@
                             x:Name="DeterminatePlayer" 
                             Visibility="Collapsed"
                             Position="{Binding RelativeSource={RelativeSource TemplatedParent}, 
-        Path=TemplateSettings.ProgressPosition}"
-                            Source="{TemplateBinding DeterminateAnimationSource}">
+        Path=ProgressUITemplateSettings.ProgressPosition}"
+                            Source="{TemplateBinding DeterminateAnimationSource}"
+                            >
                         </local:AnimatedVisualPlayerProposed>
 
                         <local:AnimatedVisualPlayerProposed 
@@ -178,7 +189,7 @@
                             <Rectangle x:Name="DeterminateProgressBarIndicator"
                                 Margin="{TemplateBinding Padding}"
                                 Fill="{TemplateBinding Foreground}" 
-                                Width="{Binding RelativeSource={RelativeSource TemplatedParent},Path=TemplateSettings.ProgressPosition, Mode=OneWay, Converter={StaticResource ProgressWidthConverter}, ConverterParameter={TemplateBinding Width}}"
+                                Width="{Binding RelativeSource={RelativeSource TemplatedParent},Path=ProgressUITemplateSettings.ProgressPosition, Mode=OneWay, Converter={StaticResource ProgressWidthConverter}, ConverterParameter={TemplateBinding Width}}"
                                 HorizontalAlignment="Left"
                                 contract7Present:RadiusX="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TopLeftCornerRadiusDoubleValueConverter}}"
                                 contract7Present:RadiusY="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BottomRightCornerRadiusDoubleValueConverter}}"

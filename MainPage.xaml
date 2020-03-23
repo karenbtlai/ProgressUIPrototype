@@ -20,15 +20,19 @@
         </StackPanel>
         <StackPanel Grid.Column="1" BorderBrush="Gray" BorderThickness="2" CornerRadius="4" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
 
-            <local:LottieProgressUI Width="100" Height="100" Margin="10"
+            <local:LottieProgressUI Width="100" Height="100"     
+                x:Name="TestLottieProgressUI"
+                Margin="10"
                 Value="{Binding Mode=OneWay,ElementName=progressSlider, Path=Value}" 
-                Foreground="{ThemeResource SystemControlHighlightAccentBrush}"
+                IsIndeterminate="{Binding Mode=OneWay,ElementName=indeterminateCheckBox, Path=IsChecked}"
+                Foreground="{ThemeResource SystemControlHighlightAccentBrush}"              
                 Background="{ThemeResource SystemControlBackgroundBaseLowBrush}"
-                StrokeWidth="{Binding Mode=OneWay,ElementName=strokeWidthSlider, Path=Value}" 
-                IsIndeterminate="{Binding Mode=OneWay,ElementName=indeterminateCheckBox, Path=IsChecked}" 
                 >
                 <local:LottieProgressUI.IndeterminateAnimationSource>
-                    <local:IndeterminateRing/>
+                    <local:IndeterminateRing
+                        Foreground="{Binding TestLottieProgressUI.LottieProgressUITemplateSettings.ForegroundColor, Mode=OneWay}"
+                        Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LottieProgressUITemplateSettings.BackgroundColor}"
+                        />
                 </local:LottieProgressUI.IndeterminateAnimationSource>
                 <local:LottieProgressUI.DeterminateAnimationSource>
                     <local:DeterminateRing/>

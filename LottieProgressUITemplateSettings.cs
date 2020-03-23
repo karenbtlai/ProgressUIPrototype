@@ -12,7 +12,7 @@ namespace ProgressUIPrototype
         }
 
         public static readonly DependencyProperty ForegroundColorProperty =
-            DependencyProperty.Register("ForegroundColor", typeof(Color), typeof(ProgressUITemplateSettings), new PropertyMetadata(0));
+            DependencyProperty.Register("ForegroundColor", typeof(Color), typeof(ProgressUITemplateSettings), new PropertyMetadata(Colors.Blue));
 
         public Color BackgroundColor
         {
