@@ -12,7 +12,7 @@ namespace ProgressUIPrototype
         }
 
         public static readonly DependencyProperty ForegroundColorProperty =
-            DependencyProperty.Register("ForegroundColor", typeof(Color), typeof(ProgressUITemplateSettings), new PropertyMetadata(Colors.Blue));
+            DependencyProperty.Register("ForegroundColor", typeof(Color), typeof(ProgressUITemplateSettings), new PropertyMetadata(Colors.DarkRed));
 
         public Color BackgroundColor
         {
@@ -21,7 +21,7 @@ namespace ProgressUIPrototype
         }
 
         public static readonly DependencyProperty BackgroundColorProperty =
-            DependencyProperty.Register("BackgroundColor", typeof(Color), typeof(ProgressUITemplateSettings), new PropertyMetadata(0));
+            DependencyProperty.Register("BackgroundColor", typeof(Color), typeof(ProgressUITemplateSettings), new PropertyMetadata(Colors.DarkRed));
 
 
         // TODO: Add a property for circle arc segment properties etc to support storyboards possibly in the future if we get asks.

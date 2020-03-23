@@ -30,12 +30,14 @@
                 >
                 <local:LottieProgressUI.IndeterminateAnimationSource>
                     <local:IndeterminateRing
-                        Foreground="{Binding TestLottieProgressUI.LottieProgressUITemplateSettings.ForegroundColor, Mode=OneWay}"
-                        Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LottieProgressUITemplateSettings.BackgroundColor}"
+                        Foreground="{x:Bind TestLottieProgressUI.LottieProgressUITemplateSettings.ForegroundColor, Mode=OneWay}"
+                        Background="{x:Bind TestLottieProgressUI.LottieProgressUITemplateSettings.BackgroundColor, Mode=OneWay}"
                         />
                 </local:LottieProgressUI.IndeterminateAnimationSource>
                 <local:LottieProgressUI.DeterminateAnimationSource>
-                    <local:DeterminateRing/>
+                    <local:DeterminateRing
+                        
+                        />
                 </local:LottieProgressUI.DeterminateAnimationSource>
             </local:LottieProgressUI>
 
