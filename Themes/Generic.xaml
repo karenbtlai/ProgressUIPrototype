@@ -19,16 +19,6 @@
                                 <VisualState x:Name="Normal" />
                                 <VisualState x:Name="Indeterminate">
                                     <VisualState.Setters>
-                                        
-                                        <!--<Setter Target="IndeterminatePlayer.Source">
-                                            <Setter.Value>
-                                                <local:IndeterminateRing
-                                                    Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LottieProgressUITemplateSettings.ForegroundColor}"
-                                                    Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LottieProgressUITemplateSettings.BackgroundColor}"
-                                                    />
-                                            </Setter.Value>
-                                            
-                                        </Setter>-->
                                         <Setter Target="DeterminatePlayer.Visibility" Value="Collapsed"/>
                                         <Setter Target="IndeterminatePlayer.Visibility" Value="Visible"/>
                                         <Setter Target="IndeterminatePlayer.IsLooping" Value="True" />

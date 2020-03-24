@@ -36,7 +36,8 @@
                 </local:LottieProgressUI.IndeterminateAnimationSource>
                 <local:LottieProgressUI.DeterminateAnimationSource>
                     <local:DeterminateRing
-                        
+                        Foreground="{x:Bind TestLottieProgressUI.LottieProgressUITemplateSettings.ForegroundColor, Mode=OneWay}"
+                        Background="{x:Bind TestLottieProgressUI.LottieProgressUITemplateSettings.BackgroundColor, Mode=OneWay}"
                         />
                 </local:LottieProgressUI.DeterminateAnimationSource>
             </local:LottieProgressUI>

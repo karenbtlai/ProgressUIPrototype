@@ -11,28 +11,105 @@ using System;
 using System.Numerics;
 using Windows.UI;
 using Windows.UI.Composition;
+using Windows.UI.Xaml;
 
 namespace ProgressUIPrototype
 {
-    public class DeterminateRing : IAnimatedVisualSource
+    sealed class DeterminateRing : DependencyObject, IAnimatedVisualSource
     {
+        CompositionPropertySet _themeProperties;
+
+        public Color Background
+        {
+            get { return (Color)GetValue(BackgroundProperty); }
+            set { SetValue(BackgroundProperty, value); }
+        }
+
+        public static readonly DependencyProperty BackgroundProperty =
+            DependencyProperty.Register("Background", typeof(Color), typeof(IndeterminateRing),
+                new PropertyMetadata(Color.FromArgb(0xFF, 0xD3, 0xD3, 0xD3), new PropertyChangedCallback(OnBackgroundChanged)));
+
+        private static void OnBackgroundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var me = ((DeterminateRing)d);
+            if (me._themeProperties != null)
+            {
+                me._themeProperties.InsertVector4("Background", ColorAsVector4(me.Background));
+            }
+        }
+
+        public Color Foreground
+        {
+            get { return (Color)GetValue(ForegroundProperty); }
+            set { SetValue(ForegroundProperty, value); }
+        }
+
+        public static readonly DependencyProperty ForegroundProperty =
+            DependencyProperty.Register("Foreground", typeof(Color), typeof(IndeterminateRing),
+                new PropertyMetadata(Color.FromArgb(0xFF, 0x00, 0x78, 0xD7), new PropertyChangedCallback(OnForegroundChanged)));
+
+        private static void OnForegroundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var me = ((DeterminateRing)d);
+            if (me._themeProperties != null)
+            {
+                me._themeProperties.InsertVector4("Foreground", ColorAsVector4(me.Foreground));
+            }
+        }
+
+        public float StrokeWidth
+        {
+            get { return (float)GetValue(StrokeWidthProperty); }
+            set { SetValue(StrokeWidthProperty, value); }
+        }
+
+        public static readonly DependencyProperty StrokeWidthProperty =
+            DependencyProperty.Register("StrokeWidth", typeof(float), typeof(IndeterminateRing),
+                new PropertyMetadata((float)2.0, new PropertyChangedCallback(OnStrokeWidthChanged)));
+
+        private static void OnStrokeWidthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var me = ((DeterminateRing)d);
+            if (me._themeProperties != null)
+            {
+                me._themeProperties.InsertScalar("StrokeWidth", me.StrokeWidth);
+            }
+        }
+
+        public CompositionPropertySet GetThemeProperties(Compositor compositor)
+        {
+            return EnsureThemeProperties(compositor);
+        }
+
+        static Vector4 ColorAsVector4(Color color) => new Vector4(color.R, color.G, color.B, color.A);
+
+        CompositionPropertySet EnsureThemeProperties(Compositor compositor)
+        {
+            if (_themeProperties is null)
+            {
+                _themeProperties = compositor.CreatePropertySet();
+                _themeProperties.InsertVector4("Background", ColorAsVector4(Background));
+                _themeProperties.InsertVector4("Foreground", ColorAsVector4(Foreground));
+                _themeProperties.InsertScalar("StrokeWidth", StrokeWidth);
+            }
+            return _themeProperties;
+        }
+
         public IAnimatedVisual TryCreateAnimatedVisual(Compositor compositor, out object diagnostics)
         {
             diagnostics = null;
-            if (!IsRuntimeCompatible())
-            {
-                return null;
-            }
-            return new AnimatedVisual(compositor);
-        }
+            EnsureThemeProperties(compositor);
 
-        static bool IsRuntimeCompatible()
-        {
-            if (!Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.Composition.CompositionGeometricClip"))
+            if (AnimatedVisual.IsRuntimeCompatible())
             {
-                return false;
+                return
+                    new AnimatedVisual(
+                        compositor,
+                        _themeProperties
+                        );
             }
-            return true;
+
+            return null;
         }
 
         sealed class AnimatedVisual : IAnimatedVisual
@@ -40,19 +117,34 @@ namespace ProgressUIPrototype
             const long c_durationTicks = 20000000;
             readonly Compositor _c;
             readonly ExpressionAnimation _reusableExpressionAnimation;
+            readonly CompositionPropertySet _themeProperties;
             ContainerVisual _root;
+            CompositionColorBrush _themeColor_Foreground;
 
-            // Ellipse Path
-            CompositionColorBrush ColorBrush_AlmostDodgerBlue_FF0078D7()
+            void BindProperty(
+                CompositionObject target,
+                string animatedPropertyName,
+                string expression,
+                string referenceParameterName,
+                CompositionObject referencedObject)
             {
-                return _c.CreateColorBrush(Color.FromArgb(0xFF, 0x00, 0x78, 0xD7));
+                _reusableExpressionAnimation.ClearAllParameters();
+                _reusableExpressionAnimation.Expression = expression;
+                _reusableExpressionAnimation.SetReferenceParameter(referenceParameterName, referencedObject);
+                target.StartAnimation(animatedPropertyName, _reusableExpressionAnimation);
             }
 
-            // Ellipse Path
-            CompositionColorBrush ColorBrush_LightGray()
-            {
-                return _c.CreateColorBrush(Color.FromArgb(0xFF, 0xD3, 0xD3, 0xD3));
-            }
+            //// Ellipse Path
+            //CompositionColorBrush ColorBrush_AlmostDodgerBlue_FF0078D7()
+            //{
+            //    return _c.CreateColorBrush(Color.FromArgb(0xFF, 0x00, 0x78, 0xD7));
+            //}
+
+            //// Ellipse Path
+            //CompositionColorBrush ColorBrush_LightGray()
+            //{
+            //    return _c.CreateColorBrush(Color.FromArgb(0xFF, 0xD3, 0xD3, 0xD3));
+            //}
 
             // Ellipse Path
             // Ellipse Path.EllipseGeometry
@@ -126,7 +218,7 @@ namespace ProgressUIPrototype
                 var result = _c.CreateSpriteShape();
                 result.TransformMatrix = new Matrix3x2(5, 0, 0, 5, 40, 40);
                 result.Geometry = Ellipse_7_0();
-                result.StrokeBrush = ColorBrush_LightGray();
+                result.StrokeBrush = ThemeColor_Background();
                 result.StrokeDashCap = CompositionStrokeCap.Round;
                 result.StrokeEndCap = CompositionStrokeCap.Round;
                 result.StrokeStartCap = CompositionStrokeCap.Round;
@@ -141,12 +233,26 @@ namespace ProgressUIPrototype
                 var result = _c.CreateSpriteShape();
                 result.TransformMatrix = new Matrix3x2(5, 0, 0, 5, 40, 40);
                 result.Geometry = Ellipse_7_1();
-                result.StrokeBrush = ColorBrush_AlmostDodgerBlue_FF0078D7();
+                result.StrokeBrush = ThemeColor_Foreground();
                 result.StrokeDashCap = CompositionStrokeCap.Round;
                 result.StrokeEndCap = CompositionStrokeCap.Round;
                 result.StrokeStartCap = CompositionStrokeCap.Round;
                 result.StrokeMiterLimit = 4;
                 result.StrokeThickness = 2;
+                return result;
+            }
+
+            CompositionColorBrush ThemeColor_Background()
+            {
+                var result = _c.CreateColorBrush();
+                BindProperty(result, "Color", "ColorRGB(_theme.Background.W,_theme.Background.X,_theme.Background.Y,_theme.Background.Z)", "_theme", _themeProperties);
+                return result;
+            }
+
+            CompositionColorBrush ThemeColor_Foreground()
+            {
+                var result = _themeColor_Foreground = _c.CreateColorBrush();
+                BindProperty(result, "Color", "ColorRGB(_theme.Foreground.W,_theme.Foreground.X,_theme.Foreground.Y,_theme.Foreground.Z)", "_theme", _themeProperties);
                 return result;
             }
 
@@ -162,9 +268,13 @@ namespace ProgressUIPrototype
                 return result;
             }
 
-            internal AnimatedVisual(Compositor compositor)
+            internal AnimatedVisual(
+                Compositor compositor,
+                CompositionPropertySet themeProperties
+                )
             {
                 _c = compositor;
+                _themeProperties = themeProperties;
                 _reusableExpressionAnimation = compositor.CreateExpressionAnimation();
                 Root();
             }
@@ -173,6 +283,12 @@ namespace ProgressUIPrototype
             TimeSpan IAnimatedVisual.Duration => TimeSpan.FromTicks(c_durationTicks);
             Vector2 IAnimatedVisual.Size => new Vector2(80, 80);
             void IDisposable.Dispose() => _root?.Dispose();
+
+            internal static bool IsRuntimeCompatible()
+            {
+                return Windows.Foundation.Metadata.ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 7);
+            }
+
         }
     }
 }
