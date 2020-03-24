@@ -7,8 +7,8 @@
     <ProjectGuid>{F8F15E69-7D73-4AA5-8CE6-F1A81BD87A2A}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProgressUIPrototype2</RootNamespace>
-    <AssemblyName>ProgressUIPrototype2</AssemblyName>
+    <RootNamespace>ProgressUIPrototype</RootNamespace>
+    <AssemblyName>ProgressUIPrototype</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
@@ -116,9 +116,14 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AnimatedVisualPlayerProposed.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LottieAnimations\DeterminateRing.cs" />
+    <Compile Include="LottieAnimations\IndeterminateRing.cs" />
+    <Compile Include="LottieProgressUI.cs" />
+    <Compile Include="LottieProgressUITemplateSettings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -150,10 +155,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.9</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.UI.Xaml">
+      <Version>2.4.0-prerelease.200203002</Version>
+    </PackageReference>
+    <PackageReference Include="Win2D.uwp">
+      <Version>1.24.0</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
