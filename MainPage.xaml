@@ -51,6 +51,13 @@
                 Background="{ThemeResource SystemControlBackgroundBaseLowBrush}"
                 IsIndeterminate="False">
             </local:ProgressUI>
+
+            <local:ProgressUserControl
+                Height="4"
+                Width="100"
+                Margin="10"
+                Foreground="{ThemeResource SystemControlHighlightAccentBrush}"
+                Background="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
         </StackPanel>
     </Grid>
 </Page>
