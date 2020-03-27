@@ -10,7 +10,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:LottieProgressUI">
                     <Grid
-                        Background="{TemplateBinding Background}"
+                        Background="Transparent"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
 
@@ -45,7 +45,8 @@
 
                         <local:AnimatedVisualPlayerProposed 
                             x:Name="IndeterminatePlayer" 
-                            Source="{TemplateBinding IndeterminateAnimationSource}">
+                            Source="{TemplateBinding IndeterminateAnimationSource}"
+                            >
                         </local:AnimatedVisualPlayerProposed>
                     </Grid>
                 </ControlTemplate>
@@ -59,7 +60,7 @@
             <Setter.Value>
             <ControlTemplate TargetType="local:ProgressUI">
                 <Grid
-                    Background="{TemplateBinding Background}"
+                    Background="Transparent"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}">
 

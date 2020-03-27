@@ -8,17 +8,19 @@
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
             <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="180" />
+            <ColumnDefinition Width="180" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Spacing="5">
-            <TextBlock Text="Indeterminate"/>
-            <CheckBox x:Name="indeterminateCheckBox"/>
+        <StackPanel Grid.Column="0" Spacing="10">
+            <TextBlock Text="Indeterminate" Margin="50, 0, 0, 0"/>
+            <CheckBox x:Name="indeterminateCheckBox" IsChecked="False" Margin="50, 0, 0, 0"/>
             <Slider Header="Value: " x:Name="progressSlider" Minimum="0" Maximum="1" StepFrequency="0.01" Width="100" IsThumbToolTipEnabled="False"/>
             <Slider Header="StrokeWidth: " x:Name="strokeWidthSlider" Minimum="0" Maximum="5" StepFrequency=".24" Width="100" IsThumbToolTipEnabled="False"/>
         </StackPanel>
-        <StackPanel Grid.Column="1" BorderBrush="Gray" BorderThickness="2" CornerRadius="4" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+        <StackPanel Grid.Column="1" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
 
             <local:LottieProgressUI Width="100" Height="100"     
                 x:Name="TestLottieProgressUI"
@@ -51,6 +53,32 @@
                 Background="{ThemeResource SystemControlBackgroundBaseLowBrush}"
                 IsIndeterminate="False">
             </local:ProgressUI>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+            <local:LottieProgressUI Width="200" Height="200"     
+                x:Name="CustomLottieProgress"
+                Margin="10"
+                Value="{Binding Mode=OneWay,ElementName=progressSlider, Path=Value}" 
+                IsIndeterminate="{Binding Mode=OneWay,ElementName=indeterminateCheckBox, Path=IsChecked}"
+                >
+                <local:LottieProgressUI.IndeterminateAnimationSource>
+                    <local:LoadAnimation />
+                </local:LottieProgressUI.IndeterminateAnimationSource>
+                <local:LottieProgressUI.DeterminateAnimationSource>
+                    <local:LoadAnimation />
+                </local:LottieProgressUI.DeterminateAnimationSource>
+            </local:LottieProgressUI>
+        </StackPanel>
+
+        <StackPanel Grid.Column="3" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+            <local:LottieProgressUI Width="200" Height="200"     
+                x:Name="CustomLottieProgressIndeterminate"
+                IsIndeterminate="True" >
+                <local:LottieProgressUI.IndeterminateAnimationSource>
+                    <local:LegoLoader />
+                </local:LottieProgressUI.IndeterminateAnimationSource>
+            </local:LottieProgressUI>
         </StackPanel>
     </Grid>
 </Page>
