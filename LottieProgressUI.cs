@@ -35,6 +35,8 @@ namespace ProgressUIPrototype
 
                 foreground.RegisterPropertyChangedCallback(SolidColorBrush.ColorProperty,
                     new DependencyPropertyChangedCallback(OnForegroundChanged));
+
+                UpdateForegroundTemplateSettings();
             }
 
             if (Background is SolidColorBrush)
@@ -46,10 +48,22 @@ namespace ProgressUIPrototype
 
                 background.RegisterPropertyChangedCallback(SolidColorBrush.ColorProperty,
                     new DependencyPropertyChangedCallback(OnBackgroundChanged));
+
+                UpdateBackgroundTemplateSettings();
             }
         }
 
         private void OnForegroundChanged(DependencyObject sender, DependencyProperty dp)
+        {
+            UpdateForegroundTemplateSettings();
+        }
+
+        private void OnBackgroundChanged(DependencyObject sender, DependencyProperty dp)
+        {
+            UpdateBackgroundTemplateSettings();
+        }
+
+        private void UpdateForegroundTemplateSettings()
         {
             if (Foreground is SolidColorBrush)
             {
@@ -57,7 +71,7 @@ namespace ProgressUIPrototype
             }
         }
 
-        private void OnBackgroundChanged(DependencyObject sender, DependencyProperty dp)
+        private void UpdateBackgroundTemplateSettings()
         {
             if (Background is SolidColorBrush)
             {
@@ -76,7 +90,7 @@ namespace ProgressUIPrototype
         public static void OnDeterminateAnimationSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             //AnimatedVisualPlayer player = new AnimatedVisualPlayer();
-            
+
             //player.Source = e.NewValue as IAnimatedVisualSource;
             //_ = player.PlayAsync(0, 1, true);
         }

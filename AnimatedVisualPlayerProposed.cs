@@ -84,7 +84,26 @@ namespace ProgressUIPrototype
 
         private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as AnimatedVisualPlayer).Source = e.NewValue as IAnimatedVisualSource;
+            var player = d as AnimatedVisualPlayer;
+            player.Source = e.NewValue as IAnimatedVisualSource;
+            var test = player.IsAnimatedVisualLoaded;
+            var test2 = player.IsPlaying;
+        }
+
+        public new bool IsAnimatedVisualLoaded
+        {
+            get { return (bool)GetValue(IsAnimatedVisualLoadedProperty); }
+            set { SetValue(IsAnimatedVisualLoadedProperty, value); }
+        }
+
+        public static readonly new DependencyProperty IsAnimatedVisualLoadedProperty =
+            DependencyProperty.Register("IsAnimatedVisualLoaded", typeof(bool), typeof(AnimatedVisualPlayerProposed), new PropertyMetadata(null, new PropertyChangedCallback(OnIsAnimatedVisualLoadedChanged)));
+
+        private static void OnIsAnimatedVisualLoadedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var player = d as AnimatedVisualPlayerProposed;
+            var value = (double)e.NewValue;
+            //player.SetProgress(value);
         }
     }
 }
