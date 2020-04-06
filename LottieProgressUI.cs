@@ -14,11 +14,6 @@ namespace ProgressUIPrototype
 
         public LottieProgressUITemplateSettings LottieProgressUITemplateSettings { get; } = new LottieProgressUITemplateSettings();
 
-        //protected override void OnIsIndeterminateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    base.OnIsIndeterminateChanged(d, e);
-        //}
-
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();

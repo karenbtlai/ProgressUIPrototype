@@ -16,7 +16,7 @@
 
         <StackPanel Grid.Column="0" Spacing="10">
             <TextBlock Text="Indeterminate" Margin="50, 0, 0, 0"/>
-            <CheckBox x:Name="indeterminateCheckBox" IsChecked="False" Margin="50, 0, 0, 0"/>
+            <CheckBox x:Name="indeterminateCheckBox" IsChecked="true" Margin="50, 0, 0, 0"/>
             <Slider Header="Value: " x:Name="progressSlider" Minimum="0" Maximum="1" StepFrequency="0.01" Width="100" IsThumbToolTipEnabled="False"/>
             <Slider Header="StrokeWidth: " x:Name="strokeWidthSlider" Minimum="0" Maximum="5" StepFrequency=".24" Width="100" IsThumbToolTipEnabled="False"/>
         </StackPanel>
@@ -74,7 +74,7 @@
         <StackPanel Grid.Column="3" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
             <local:LottieProgressUI Width="200" Height="200"     
                 x:Name="CustomLottieProgressIndeterminate"
-                IsIndeterminate="True" >
+                 >
                 <local:LottieProgressUI.IndeterminateAnimationSource>
                     <local:LegoLoader />
                 </local:LottieProgressUI.IndeterminateAnimationSource>

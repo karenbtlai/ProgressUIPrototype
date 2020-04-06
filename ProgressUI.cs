@@ -12,7 +12,7 @@ namespace ProgressUIPrototype
     {
         public ProgressUI()
         {
-            this.DefaultStyleKey = typeof(ProgressUI);
+            this.DefaultStyleKey = typeof(ProgressUI);   
         }
 
         public ProgressUITemplateSettings ProgressUITemplateSettings { get; } = new ProgressUITemplateSettings();
@@ -32,6 +32,19 @@ namespace ProgressUIPrototype
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+            UpdateStates();
+        }
+
+        private void UpdateStates()
+        {
+            if (this.IsIndeterminate)
+            {
+                VisualStateManager.GoToState(this, "Indeterminate", true);
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, "Determinate", true);
+            }
         }
 
         public bool IsIndeterminate
@@ -41,7 +54,7 @@ namespace ProgressUIPrototype
         }
 
         public static readonly DependencyProperty IsIndeterminateProperty =
-            DependencyProperty.Register("IsIndeterminate", typeof(bool), typeof(ProgressUI), new PropertyMetadata(false, new PropertyChangedCallback(OnIsIndeterminateChanged)));
+            DependencyProperty.Register("IsIndeterminate", typeof(bool), typeof(ProgressUI), new PropertyMetadata(true, new PropertyChangedCallback(OnIsIndeterminateChanged)));
 
         private static void OnIsIndeterminateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

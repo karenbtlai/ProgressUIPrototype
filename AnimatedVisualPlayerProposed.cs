@@ -68,9 +68,14 @@ namespace ProgressUIPrototype
 
         private static void OnPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var player = d as AnimatedVisualPlayerProposed;
+            var player = d as AnimatedVisualPlayer;
             var value = (double)e.NewValue;
-            player.SetProgress(value);
+
+            if (player.IsAnimatedVisualLoaded)
+            {
+                player.SetProgress(value);
+            }
+     
         }
 
         public new IAnimatedVisualSource Source
@@ -86,8 +91,6 @@ namespace ProgressUIPrototype
         {
             var player = d as AnimatedVisualPlayer;
             player.Source = e.NewValue as IAnimatedVisualSource;
-            var test = player.IsAnimatedVisualLoaded;
-            var test2 = player.IsPlaying;
         }
 
         public new bool IsAnimatedVisualLoaded
