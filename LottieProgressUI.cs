@@ -84,10 +84,6 @@ namespace ProgressUIPrototype
 
         public static void OnDeterminateAnimationSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            //AnimatedVisualPlayer player = new AnimatedVisualPlayer();
-
-            //player.Source = e.NewValue as IAnimatedVisualSource;
-            //_ = player.PlayAsync(0, 1, true);
         }
 
         public IAnimatedVisualSource IndeterminateAnimationSource
@@ -100,10 +96,6 @@ namespace ProgressUIPrototype
 
         public static void OnIndeterminateAnimationSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            //AnimatedVisualPlayer player = new AnimatedVisualPlayer();
-            
-            //player.Source = e.NewValue as IAnimatedVisualSource;
-            //_ = player.PlayAsync(0, 1, true);
         }
     }
 }
