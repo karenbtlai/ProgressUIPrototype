@@ -84,7 +84,8 @@ namespace ProgressUIPrototype
 
         private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as AnimatedVisualPlayer).Source = e.NewValue as IAnimatedVisualSource;
+            var player = d as AnimatedVisualPlayer;
+            player.Source = e.NewValue as IAnimatedVisualSource;
         }
     }
 }
