@@ -46,15 +46,8 @@ namespace ProgressUIPrototype
 
         private static void OnIsActiveChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((bool)e.NewValue)
-            {
-                m_player.Opacity = 1;
-            }
-            else
-            {
-                m_player.Opacity = 0;
-                m_player.Stop();
-            }
+            var animatedProgressUI = d as AnimatedProgressUI;
+            animatedProgressUI.UpdateStates();
         }
 
         public bool IsIndeterminate
@@ -68,14 +61,8 @@ namespace ProgressUIPrototype
 
         private static void OnIsIndeterminateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((bool)e.NewValue)
-            {
-                _ = m_player.PlayAsync(0, 1, true);
-            }
-            else
-            {
-                m_player.Stop();
-            }
+            var animatedProgressUI = d as AnimatedProgressUI;
+            animatedProgressUI.UpdateStates();
         }
 
         public bool ShowPaused
@@ -89,10 +76,8 @@ namespace ProgressUIPrototype
 
         private static void OnShowPausedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((bool)e.NewValue)
-            {
-                m_player.Pause();
-            }
+            var animatedProgressUI = d as AnimatedProgressUI;
+            animatedProgressUI.UpdateStates();
         }
 
         public bool ShowError
@@ -106,10 +91,8 @@ namespace ProgressUIPrototype
 
         private static void OnShowErrorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((bool)e.NewValue)
-            {
-                m_player.Stop();
-            }
+            var animatedProgressUI = d as AnimatedProgressUI;
+            animatedProgressUI.UpdateStates();
         }
 
         public IAnimatedVisualSource AnimationSource
@@ -136,7 +119,7 @@ namespace ProgressUIPrototype
         }
 
         public static readonly DependencyProperty ProgressPositionProperty =
-            DependencyProperty.Register("ProgressPosition", typeof(double), typeof(AnimatedProgressUI), new PropertyMetadata(true, new PropertyChangedCallback(OnProgressPositionChanged)));
+            DependencyProperty.Register("ProgressPosition", typeof(double), typeof(AnimatedProgressUI), new PropertyMetadata(0, new PropertyChangedCallback(OnProgressPositionChanged)));
 
         private static void OnProgressPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
