@@ -123,7 +123,11 @@ namespace ProgressUIPrototype
 
         private static void OnProgressPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            var animatedProgressUI = d as AnimatedProgressUI;
+            if (!animatedProgressUI.IsIndeterminate)
+            {
+                m_player.SetProgress(animatedProgressUI.ProgressPosition);
+            }
         }
 
         private void UpdateStates()

@@ -93,7 +93,8 @@
                 IsActive="{Binding Mode=OneWay,ElementName=isActiveCheckBox, Path=IsChecked}"
                 IsIndeterminate="{Binding Mode=OneWay,ElementName=indeterminateCheckBox, Path=IsChecked}"
                 ShowPaused="{Binding Mode=OneWay,ElementName=showPausedCheckBox, Path=IsChecked}"
-                ShowError="{Binding Mode=OneWay,ElementName=showErrorCheckBox, Path=IsChecked}"                      
+                ShowError="{Binding Mode=OneWay,ElementName=showErrorCheckBox, Path=IsChecked}"
+                ProgressPosition="{Binding Mode=OneWay,ElementName=progressSlider, Path=Value}"
                 >
                 <local:AnimatedProgressUI.AnimationSource>
                     <local:DeterminateRing/>
