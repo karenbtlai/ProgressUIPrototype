@@ -83,8 +83,14 @@
         </StackPanel>
 
         <StackPanel Grid.Column="4" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
-            <local:AnimatedProgressUI Width="180" Height="180"     
-                x:Name="TestAnimatedProgressUI" />
+            <local:AnimatedProgressUI Width="100" Height="100"     
+                x:Name="TestAnimatedProgressUI"
+                IsIndeterminate="{Binding Mode=OneWay,ElementName=indeterminateCheckBox, Path=IsChecked}"
+                IsActive="True">
+                <local:AnimatedProgressUI.AnimationSource>
+                    <local:DeterminateRing/>
+                </local:AnimatedProgressUI.AnimationSource>
+            </local:AnimatedProgressUI>
         </StackPanel>
     </Grid>
 </Page>

@@ -13,12 +13,11 @@ namespace ProgressUIPrototype
 {
     public class AnimatedProgressUI : Panel
     {
-        private AnimatedVisualPlayerProposed m_player;
+        private static AnimatedVisualPlayerProposed m_player;
 
         public AnimatedProgressUI()
         {
             m_player = new AnimatedVisualPlayerProposed();
-            m_player.Source = new DeterminateRing();
             Children.Add(m_player);
         }
 
@@ -36,21 +35,143 @@ namespace ProgressUIPrototype
             return finalSize;
         }
 
-
-
         public bool IsActive
         {
             get { return (bool)GetValue(IsActiveProperty); }
             set { SetValue(IsActiveProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsActive.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsActiveProperty =
             DependencyProperty.Register("IsActive", typeof(bool), typeof(AnimatedProgressUI), new PropertyMetadata(true, new PropertyChangedCallback(OnIsActiveChanged)));
 
         private static void OnIsActiveChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            if ((bool)e.NewValue)
+            {
+                m_player.Opacity = 1;
+            }
+            else
+            {
+                m_player.Opacity = 0;
+                m_player.Stop();
+            }
+        }
+
+        public bool IsIndeterminate
+        {
+            get { return (bool)GetValue(IsIndeterminateProperty); }
+            set { SetValue(IsIndeterminateProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsIndeterminateProperty =
+            DependencyProperty.Register("IsIndeterminate", typeof(bool), typeof(AnimatedProgressUI), new PropertyMetadata(true, new PropertyChangedCallback(OnIsIndeterminateChanged)));
+
+        private static void OnIsIndeterminateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+            {
+                _ = m_player.PlayAsync(0, 1, true);
+            }
+            else
+            {
+                m_player.Stop();
+            }
+        }
+
+        public bool ShowPaused
+        {
+            get { return (bool)GetValue(ShowPausedProperty); }
+            set { SetValue(ShowPausedProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShowPausedProperty =
+            DependencyProperty.Register("ShowPaused", typeof(bool), typeof(AnimatedProgressUI), new PropertyMetadata(false, new PropertyChangedCallback(OnShowPausedChanged)));
+
+        private static void OnShowPausedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+            {
+                m_player.Pause();
+            }
+        }
+
+        public bool ShowError
+        {
+            get { return (bool)GetValue(ShowErrorProperty); }
+            set { SetValue(ShowErrorProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShowErrorProperty =
+            DependencyProperty.Register("ShowError", typeof(bool), typeof(AnimatedProgressUI), new PropertyMetadata(false, new PropertyChangedCallback(OnShowErrorChanged)));
+
+        private static void OnShowErrorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+            {
+                m_player.Stop();
+            }
+        }
+
+        public IAnimatedVisualSource AnimationSource
+        {
+            get { return (IAnimatedVisualSource)GetValue(AnimationSourceProperty); }
+            set { SetValue(AnimationSourceProperty, value); }
+        }
+
+        public static readonly DependencyProperty AnimationSourceProperty =
+            DependencyProperty.Register("AnimationSource", typeof(IAnimatedVisualSource), typeof(AnimatedProgressUI), new PropertyMetadata(true, new PropertyChangedCallback(OnAnimationSourceChanged)));
+
+        private static void OnAnimationSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            m_player.Source = e.NewValue as IAnimatedVisualSource;
+
+            var animatedProgressUI = d as AnimatedProgressUI;
+            animatedProgressUI.UpdateStates();
+        }
+
+        public double ProgressPosition
+        {
+            get { return (double)GetValue(ProgressPositionProperty); }
+            set { SetValue(ProgressPositionProperty, value); }
+        }
+
+        public static readonly DependencyProperty ProgressPositionProperty =
+            DependencyProperty.Register("ProgressPosition", typeof(double), typeof(AnimatedProgressUI), new PropertyMetadata(true, new PropertyChangedCallback(OnProgressPositionChanged)));
+
+        private static void OnProgressPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
             throw new NotImplementedException();
+        }
+
+        private void UpdateStates()
+        {
+            if (this.IsActive)
+            {
+                m_player.Opacity = 1;
+
+                if (this.ShowError)
+                {
+                    m_player.Stop();
+                }
+                else if (this.ShowPaused)
+                {
+                    m_player.Pause();
+                }
+                else if (this.IsIndeterminate)
+                {
+                    _ = m_player.PlayAsync(0, 1, true);
+                }
+                else if (!this.IsIndeterminate)
+                {
+                    m_player.SetProgress(ProgressPosition);
+                }
+            }
+            else
+            {
+                m_player.Stop();
+                m_player.Opacity = 0;
+            }
+            
         }
     }
 }
