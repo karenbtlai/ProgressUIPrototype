@@ -90,7 +90,7 @@
         </StackPanel>-->
 
         <StackPanel Grid.Column="1" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
-            <local:AnimatedProgressUI Width="100" Height="100"     
+            <local:AnimatedProgressUI Width="200" Height="200"     
                 x:Name="TestAnimatedProgressUI"
                 IsActive="{Binding Mode=OneWay,ElementName=isActiveCheckBox, Path=IsChecked}"
                 IsIndeterminate="{Binding Mode=OneWay,ElementName=indeterminateCheckBox, Path=IsChecked}"
@@ -99,7 +99,7 @@
                 ProgressPosition="{Binding Mode=OneWay,ElementName=progressSlider, Path=Value}"
                 >
                 <local:AnimatedProgressUI.AnimationSource>
-                    <local:DeterminateRing/>
+                    <local:LoadAnimation/>
                 </local:AnimatedProgressUI.AnimationSource>
             </local:AnimatedProgressUI>
         </StackPanel>

@@ -41,14 +41,17 @@ namespace ProgressUIPrototype
 
             if (rb.Name == "ShowSuccess")
             {
+                MultipleStatesToggleProgressUI.IsLooping = false;
                 MultipleStatesToggleProgressUI.AnimationSource = new LoadingSuccessState();
             }
             else if (rb.Name == "ShowError")
             {
+                MultipleStatesToggleProgressUI.IsLooping = false;
                 MultipleStatesToggleProgressUI.AnimationSource = new LoadingErrorState();
             }
             else
             {
+                MultipleStatesToggleProgressUI.IsLooping = true;
                 MultipleStatesToggleProgressUI.AnimationSource = new LoadingGenericState();
             }
         }

@@ -85,6 +85,21 @@ namespace ProgressUIPrototype
             animatedProgressUI.UpdateStates();
         }
 
+        public bool IsLooping
+        {
+            get { return (bool)GetValue(IsLoopingProperty); }
+            set { SetValue(IsLoopingProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsLoopingProperty =
+            DependencyProperty.Register("IsLooping", typeof(bool), typeof(AnimatedProgressUI), new PropertyMetadata(true, new PropertyChangedCallback(OnIsLoopingChanged)));
+
+        private static void OnIsLoopingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var animatedProgressUI = d as AnimatedProgressUI;
+            animatedProgressUI.UpdateStates();
+        }
+
         public bool ShowError
         {
             get { return (bool)GetValue(ShowErrorProperty); }
@@ -143,17 +158,13 @@ namespace ProgressUIPrototype
                 {
                     child.Opacity = 1;
 
-                    if (this.ShowError)
-                    {
-                        child.Stop();
-                    }
-                    else if (this.ShowPaused)
+                    if (this.ShowPaused)
                     {
                         child.Pause();
                     }
                     else if (this.IsIndeterminate)
                     {
-                        _ = child.PlayAsync(0, 1, true);
+                        _ = child.PlayAsync(0, 1, IsLooping);
                     }
                     else if (!this.IsIndeterminate)
                     {
