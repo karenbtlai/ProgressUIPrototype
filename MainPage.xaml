@@ -20,12 +20,9 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Spacing="10">
-            <TextBlock Text="IsActive" Margin="50, 0, 0, 0"/>
-            <CheckBox x:Name="isActiveCheckBox" IsChecked="true" Margin="50, 0, 0, 0"/>
-            <TextBlock Text="Indeterminate" Margin="50, 0, 0, 0"/>
-            <CheckBox x:Name="indeterminateCheckBox" Click="indeterminateCheckbox_Click" IsChecked="true" Margin="50, 0, 0, 0"/>
-            <TextBlock Text="ShowPaused" Margin="50, 0, 0, 0"/>
-            <CheckBox x:Name="showPausedCheckBox" IsChecked="False" Margin="50, 0, 0, 0"/>
+            <CheckBox x:Name="isActiveCheckBox" IsChecked="true" Content="IsActive" Margin="50, 0, 0, 0"/>
+            <CheckBox x:Name="indeterminateCheckBox" Content="Indeterminate" Click="indeterminateCheckbox_Click" IsChecked="true" Margin="50, 0, 0, 0"/>
+            <CheckBox x:Name="showPausedCheckBox" Content="ShowPaused" IsChecked="False" Margin="50, 0, 0, 0"/>
             <Slider Header="Value: " x:Name="progressSlider" Minimum="0" Maximum="1" StepFrequency="0.01" Width="100" IsThumbToolTipEnabled="False"/>
         </StackPanel>
         <!--<StackPanel Grid.Column="1" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
@@ -118,12 +115,12 @@
                 </local:AnimatedProgressUI.AnimationSource>
             </local:AnimatedProgressUI>
         </StackPanel>
-        <StackPanel Grid.Column="3" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
-            <RadioButton x:Name="Default" Margin="5" Checked="HandleCustomStateToggle"
+        <StackPanel Grid.Column="3" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Top" Spacing="8">
+            <RadioButton x:Name="Default" Checked="HandleCustomStateToggle"
      GroupName="CustomStateToggleGroup" Content="Default" />
-            <RadioButton x:Name="ShowError" Margin="5" Checked="HandleCustomStateToggle"
+            <RadioButton x:Name="ShowError" Checked="HandleCustomStateToggle"
      GroupName="CustomStateToggleGroup" Content="ShowError" />
-            <RadioButton x:Name="ShowSuccess" Margin="5" Checked="HandleCustomStateToggle"
+            <RadioButton x:Name="ShowSuccess" Checked="HandleCustomStateToggle"
      GroupName="CustomStateToggleGroup" Content="ShowSuccess" />
 
             <local:AnimatedProgressUI Width="100" Height="100"     
@@ -138,7 +135,7 @@
 
         <StackPanel Grid.Column="4" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
             <local:AnimatedProgressUI Width="200" Height="200"     
-                x:Name="IndeterminateAnimatedProgressUI"
+                x:Name="IndeterminateProgressUI"
                 IsActive="{Binding Mode=OneWay,ElementName=isActiveCheckBox, Path=IsChecked}"
                 IsIndeterminate="True"
                 >
