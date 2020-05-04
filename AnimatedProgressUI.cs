@@ -23,15 +23,19 @@ namespace ProgressUIPrototype
 
         protected override Size MeasureOverride(Size availableSize)
         {
-            m_player.Measure(availableSize);
-
+            foreach (FrameworkElement child in Children)
+            {
+                child.Measure(availableSize);
+            }
             return m_player.DesiredSize;
         }
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            m_player.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
-
+            foreach (FrameworkElement child in Children)
+            {
+                child.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
+            }
             return finalSize;
         }
 
@@ -48,6 +52,7 @@ namespace ProgressUIPrototype
         {
             var animatedProgressUI = d as AnimatedProgressUI;
             animatedProgressUI.UpdateStates();
+
         }
 
         public bool IsIndeterminate
@@ -132,33 +137,35 @@ namespace ProgressUIPrototype
 
         private void UpdateStates()
         {
-            if (this.IsActive)
+            foreach (AnimatedVisualPlayerProposed child in Children)
             {
-                m_player.Opacity = 1;
+                if (this.IsActive)
+                {
+                    child.Opacity = 1;
 
-                if (this.ShowError)
-                {
-                    m_player.Stop();
+                    if (this.ShowError)
+                    {
+                        child.Stop();
+                    }
+                    else if (this.ShowPaused)
+                    {
+                        child.Pause();
+                    }
+                    else if (this.IsIndeterminate)
+                    {
+                        _ = child.PlayAsync(0, 1, true);
+                    }
+                    else if (!this.IsIndeterminate)
+                    {
+                        child.SetProgress(ProgressPosition);
+                    }
                 }
-                else if (this.ShowPaused)
+                else
                 {
-                    m_player.Pause();
-                }
-                else if (this.IsIndeterminate)
-                {
-                    _ = m_player.PlayAsync(0, 1, true);
-                }
-                else if (!this.IsIndeterminate)
-                {
-                    m_player.SetProgress(ProgressPosition);
+                    child.Stop();
+                    child.Opacity = 0;
                 }
             }
-            else
-            {
-                m_player.Stop();
-                m_player.Opacity = 0;
-            }
-            
         }
     }
 }

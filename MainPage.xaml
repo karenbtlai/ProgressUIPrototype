@@ -7,6 +7,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.Resources>
+            <local:SolidColorBrushToColorConverter x:Key="BrushToColorConverter" />
+        </Grid.Resources>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="200" />
@@ -19,11 +23,9 @@
             <TextBlock Text="IsActive" Margin="50, 0, 0, 0"/>
             <CheckBox x:Name="isActiveCheckBox" IsChecked="true" Margin="50, 0, 0, 0"/>
             <TextBlock Text="Indeterminate" Margin="50, 0, 0, 0"/>
-            <CheckBox x:Name="indeterminateCheckBox" IsChecked="true" Margin="50, 0, 0, 0"/>
+            <CheckBox x:Name="indeterminateCheckBox" Click="indeterminateCheckbox_Click" IsChecked="true" Margin="50, 0, 0, 0"/>
             <TextBlock Text="ShowPaused" Margin="50, 0, 0, 0"/>
             <CheckBox x:Name="showPausedCheckBox" IsChecked="False" Margin="50, 0, 0, 0"/>
-            <TextBlock Text="ShowError" Margin="50, 0, 0, 0"/>
-            <CheckBox x:Name="showErrorCheckBox" IsChecked="False" Margin="50, 0, 0, 0"/>
             <Slider Header="Value: " x:Name="progressSlider" Minimum="0" Maximum="1" StepFrequency="0.01" Width="100" IsThumbToolTipEnabled="False"/>
         </StackPanel>
         <!--<StackPanel Grid.Column="1" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
@@ -100,6 +102,38 @@
                     <local:DeterminateRing/>
                 </local:AnimatedProgressUI.AnimationSource>
             </local:AnimatedProgressUI>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+            <local:AnimatedProgressUI Width="100" Height="100"     
+                x:Name="IsIndeterminateToggleProgressUI"
+                IsActive="{Binding Mode=OneWay,ElementName=isActiveCheckBox, Path=IsChecked}"
+                IsIndeterminate="{Binding Mode=OneWay,ElementName=indeterminateCheckBox, Path=IsChecked}"
+                ShowPaused="{Binding Mode=OneWay,ElementName=showPausedCheckBox, Path=IsChecked}"
+                ShowError="{Binding Mode=OneWay,ElementName=showErrorCheckBox, Path=IsChecked}"
+                ProgressPosition="{Binding Mode=OneWay,ElementName=progressSlider, Path=Value}"
+                >
+                <local:AnimatedProgressUI.AnimationSource>
+                    <local:DeterminateRing/>
+                </local:AnimatedProgressUI.AnimationSource>
+            </local:AnimatedProgressUI>
+        </StackPanel>
+        <StackPanel Grid.Column="3" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+            <!--<RadioButton x:Name="Default" Margin="5" Checked="HandleCustomStateToggle"
+     GroupName="CustomStateToggleGroup" Content="Default" />
+            <RadioButton x:Name="ShowError" Margin="5" Checked="HandleCustomStateToggle"
+     GroupName="CustomStateToggleGroup" Content="ShowError" />
+            <RadioButton x:Name="ShowSuccess" Margin="5" Checked="HandleCustomStateToggle"
+     GroupName="CustomStateToggleGroup" Content="ShowSuccess" />-->
+
+            <!--<local:AnimatedProgressUI Width="100" Height="100"     
+                x:Name="MultipleStatesToggleProgressUI"
+                IsActive="{Binding Mode=OneWay,ElementName=isActiveCheckBox, Path=IsChecked}"
+                >
+                <local:AnimatedProgressUI.AnimationSource>
+                    <local:LoadingGenericState/>
+                </local:AnimatedProgressUI.AnimationSource>
+            </local:AnimatedProgressUI>-->
         </StackPanel>
     </Grid>
 </Page>
