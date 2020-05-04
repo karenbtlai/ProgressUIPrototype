@@ -111,9 +111,9 @@ namespace ProgressUIPrototype
 
         private static void OnAnimationSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            m_player.Source = e.NewValue as IAnimatedVisualSource;
-
             var animatedProgressUI = d as AnimatedProgressUI;
+
+            animatedProgressUI.UpdateSource(e);
             animatedProgressUI.UpdateStates();
         }
 
@@ -131,7 +131,7 @@ namespace ProgressUIPrototype
             var animatedProgressUI = d as AnimatedProgressUI;
             if (!animatedProgressUI.IsIndeterminate)
             {
-                m_player.SetProgress(animatedProgressUI.ProgressPosition);
+                animatedProgressUI.UpdateProgressPosition(animatedProgressUI.ProgressPosition);
             }
         }
 
@@ -165,6 +165,22 @@ namespace ProgressUIPrototype
                     child.Stop();
                     child.Opacity = 0;
                 }
+            }
+        }
+
+        private void UpdateSource(DependencyPropertyChangedEventArgs e)
+        {
+            foreach (AnimatedVisualPlayerProposed child in Children)
+            {
+                child.Source = e.NewValue as IAnimatedVisualSource;
+            }
+        }
+
+        private void UpdateProgressPosition(double progressPosition)
+        {
+            foreach (AnimatedVisualPlayerProposed child in Children)
+            {
+                child.SetProgress(progressPosition);
             }
         }
     }

@@ -35,23 +35,23 @@ namespace ProgressUIPrototype
             }
         }
 
-        //private void HandleCustomStateToggle(object sender, RoutedEventArgs e)
-        //{
-        //    RadioButton rb = sender as RadioButton;
+        private void HandleCustomStateToggle(object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
 
-        //    if (rb.Name == "ShowSuccess")
-        //    {
-        //        MultipleStatesToggleProgressUI.AnimationSource = new LoadingSuccessState();
-        //    }
-        //    else if (rb.Name == "ShowError")
-        //    {
-        //        MultipleStatesToggleProgressUI.AnimationSource = new LoadingErrorState();
-        //    }
-        //    else
-        //    {
-        //        MultipleStatesToggleProgressUI.AnimationSource = new LoadingGenericState();
-        //    }
-        //}
+            if (rb.Name == "ShowSuccess")
+            {
+                MultipleStatesToggleProgressUI.AnimationSource = new LoadingSuccessState();
+            }
+            else if (rb.Name == "ShowError")
+            {
+                MultipleStatesToggleProgressUI.AnimationSource = new LoadingErrorState();
+            }
+            else
+            {
+                MultipleStatesToggleProgressUI.AnimationSource = new LoadingGenericState();
+            }
+        }
     }
 
     public class SolidColorBrushToColorConverter : IValueConverter

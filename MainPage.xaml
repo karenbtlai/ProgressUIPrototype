@@ -119,21 +119,21 @@
             </local:AnimatedProgressUI>
         </StackPanel>
         <StackPanel Grid.Column="3" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
-            <!--<RadioButton x:Name="Default" Margin="5" Checked="HandleCustomStateToggle"
+            <RadioButton x:Name="Default" Margin="5" Checked="HandleCustomStateToggle"
      GroupName="CustomStateToggleGroup" Content="Default" />
             <RadioButton x:Name="ShowError" Margin="5" Checked="HandleCustomStateToggle"
      GroupName="CustomStateToggleGroup" Content="ShowError" />
             <RadioButton x:Name="ShowSuccess" Margin="5" Checked="HandleCustomStateToggle"
-     GroupName="CustomStateToggleGroup" Content="ShowSuccess" />-->
+     GroupName="CustomStateToggleGroup" Content="ShowSuccess" />
 
-            <!--<local:AnimatedProgressUI Width="100" Height="100"     
+            <local:AnimatedProgressUI Width="100" Height="100"     
                 x:Name="MultipleStatesToggleProgressUI"
                 IsActive="{Binding Mode=OneWay,ElementName=isActiveCheckBox, Path=IsChecked}"
                 >
                 <local:AnimatedProgressUI.AnimationSource>
                     <local:LoadingGenericState/>
                 </local:AnimatedProgressUI.AnimationSource>
-            </local:AnimatedProgressUI>-->
+            </local:AnimatedProgressUI>
         </StackPanel>
     </Grid>
 </Page>
