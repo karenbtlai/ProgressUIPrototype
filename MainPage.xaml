@@ -127,11 +127,23 @@
      GroupName="CustomStateToggleGroup" Content="ShowSuccess" />
 
             <local:AnimatedProgressUI Width="100" Height="100"     
-                x:Name="MultipleStatesToggleProgressUI"
+                x:Name="CustomStateToggleProgressUI"
                 IsActive="{Binding Mode=OneWay,ElementName=isActiveCheckBox, Path=IsChecked}"
                 >
                 <local:AnimatedProgressUI.AnimationSource>
                     <local:LoadingGenericState/>
+                </local:AnimatedProgressUI.AnimationSource>
+            </local:AnimatedProgressUI>
+        </StackPanel>
+
+        <StackPanel Grid.Column="4" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+            <local:AnimatedProgressUI Width="200" Height="200"     
+                x:Name="IndeterminateAnimatedProgressUI"
+                IsActive="{Binding Mode=OneWay,ElementName=isActiveCheckBox, Path=IsChecked}"
+                IsIndeterminate="True"
+                >
+                <local:AnimatedProgressUI.AnimationSource>
+                    <local:LegoLoader/>
                 </local:AnimatedProgressUI.AnimationSource>
             </local:AnimatedProgressUI>
         </StackPanel>
