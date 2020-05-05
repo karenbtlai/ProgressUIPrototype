@@ -23,20 +23,19 @@ namespace ProgressUIPrototype
         {
             var desiredSize = new Size();
 
-            foreach (FrameworkElement child in Children)
-            {
-                child.Measure(availableSize);
-                desiredSize = child.DesiredSize;
-            }
+            FrameworkElement child = (FrameworkElement)Children[0];
+
+            child.Measure(availableSize);
+            desiredSize = child.DesiredSize;
+            
             return desiredSize;
         }
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            foreach (FrameworkElement child in Children)
-            {
-                child.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
-            }
+            FrameworkElement child = (FrameworkElement)Children[0];
+            child.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
+
             return finalSize;
         }
 
@@ -153,47 +152,42 @@ namespace ProgressUIPrototype
 
         private void UpdateStates()
         {
-            foreach (AnimatedVisualPlayerProposed player in Children)
-            {
-                if (this.IsActive)
-                {
-                    player.Opacity = 1;
+            AnimatedVisualPlayer player = (AnimatedVisualPlayer)Children[0];
 
-                    if (this.ShowPaused)
-                    {
-                        player.Pause();
-                    }
-                    else if (this.IsIndeterminate)
-                    {
-                        _ = player.PlayAsync(0, 1, IsLooping);
-                    }
-                    else if (!this.IsIndeterminate)
-                    {
-                        player.SetProgress(ProgressPosition);
-                    }
-                }
-                else
+            if (this.IsActive)
+            {
+                player.Opacity = 1;
+
+                if (this.ShowPaused)
                 {
-                    player.Stop();
-                    player.Opacity = 0;
+                    player.Pause();
                 }
+                else if (this.IsIndeterminate)
+                {
+                    _ = player.PlayAsync(0, 1, IsLooping);
+                }
+                else if (!this.IsIndeterminate)
+                {
+                    player.SetProgress(ProgressPosition);
+                }
+            }
+            else
+            {
+                player.Stop();
+                player.Opacity = 0;
             }
         }
 
         private void UpdateSource(DependencyPropertyChangedEventArgs e)
         {
-            foreach (AnimatedVisualPlayerProposed player in Children)
-            {
-                player.Source = e.NewValue as IAnimatedVisualSource;
-            }
+            AnimatedVisualPlayer player = (AnimatedVisualPlayer)Children[0];
+            player.Source = e.NewValue as IAnimatedVisualSource;
         }
 
         private void UpdateProgressPosition(double progressPosition)
         {
-            foreach (AnimatedVisualPlayerProposed player in Children)
-            {
-                player.SetProgress(progressPosition);
-            }
+            AnimatedVisualPlayer player = (AnimatedVisualPlayer)Children[0];
+            player.SetProgress(progressPosition);
         }
     }
 }
