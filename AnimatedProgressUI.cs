@@ -150,6 +150,12 @@ namespace ProgressUIPrototype
             }
         }
 
+        public void RunAnimation(double start, double end, bool loop)
+        {
+            AnimatedVisualPlayer player = (AnimatedVisualPlayer)Children[0];
+            _ = player.PlayAsync(start, end, loop);
+        }
+
         private void UpdateStates()
         {
             AnimatedVisualPlayer player = (AnimatedVisualPlayer)Children[0];
