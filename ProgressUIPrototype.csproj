@@ -121,6 +121,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AnimatedProgressUI.cs" />
+    <Compile Include="AnimatedIcon.cs" />
     <Compile Include="LottieAnimations\DeterminateRing.cs" />
     <Compile Include="LottieAnimations\IndeterminateRing.cs" />
     <Compile Include="LottieAnimations\LegoLoader.cs" />

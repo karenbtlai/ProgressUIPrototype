@@ -20,129 +20,35 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Spacing="10">
-            <CheckBox x:Name="isActiveCheckBox" IsChecked="true" Content="IsActive" Margin="50, 0, 0, 0"/>
-            <CheckBox x:Name="indeterminateCheckBox" Content="Indeterminate" Click="indeterminateCheckbox_Click" IsChecked="true" Margin="50, 0, 0, 0"/>
-            <CheckBox x:Name="showPausedCheckBox" Content="ShowPaused" IsChecked="False" Margin="50, 0, 0, 0"/>
+            <CheckBox x:Name="isAnimatingCheckBox" IsChecked="True" Content="IsAnimating" Margin="50, 0, 0, 0"/>
+            <CheckBox x:Name="isLoopingCheckBox" Content="IsLooping" IsChecked="True" Margin="50, 0, 0, 0"/>
             <Slider Header="Value: " x:Name="progressSlider" Minimum="0" Maximum="1" StepFrequency="0.01" Width="100" IsThumbToolTipEnabled="False"/>
         </StackPanel>
-        <!--<StackPanel Grid.Column="1" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
 
-            <local:LottieProgressUI Width="100" Height="100"     
-                x:Name="TestLottieProgressUI"
-                Margin="10"
-                Value="{Binding Mode=OneWay,ElementName=progressSlider, Path=Value}" 
-                IsIndeterminate="{Binding Mode=OneWay,ElementName=indeterminateCheckBox, Path=IsChecked}"
-                Foreground="{ThemeResource SystemControlHighlightAccentBrush}"              
-                Background="{ThemeResource SystemControlBackgroundBaseLowBrush}"
-                >
-                <local:LottieProgressUI.IndeterminateAnimationSource>
-                    <local:IndeterminateRing
-                        Foreground="{x:Bind TestLottieProgressUI.LottieProgressUITemplateSettings.ForegroundColor, Mode=OneWay}"
-                        Background="{x:Bind TestLottieProgressUI.LottieProgressUITemplateSettings.BackgroundColor, Mode=OneWay}"
-                        />
-                </local:LottieProgressUI.IndeterminateAnimationSource>
-                <local:LottieProgressUI.DeterminateAnimationSource>
-                    <local:DeterminateRing
-                        Foreground="{x:Bind TestLottieProgressUI.LottieProgressUITemplateSettings.ForegroundColor, Mode=OneWay}"
-                        Background="{x:Bind TestLottieProgressUI.LottieProgressUITemplateSettings.BackgroundColor, Mode=OneWay}"
-                        />
-                </local:LottieProgressUI.DeterminateAnimationSource>
-            </local:LottieProgressUI>
-
-            <local:ProgressUI
-                Height="4"
-                Width="100"
-                Margin="10"
-                Value="{Binding Mode=OneWay,ElementName=progressSlider, Path=Value}" 
-                Foreground="{ThemeResource SystemControlHighlightAccentBrush}"
-                Background="{ThemeResource SystemControlBackgroundBaseLowBrush}"
-                IsIndeterminate="False">
-            </local:ProgressUI>
-        </StackPanel>
-
-        <StackPanel Grid.Column="2" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
-            <local:LottieProgressUI Width="200" Height="200"     
-                x:Name="CustomLottieProgress"
-                Margin="10"
-                Value="{Binding Mode=OneWay,ElementName=progressSlider, Path=Value}" 
-                IsIndeterminate="{Binding Mode=OneWay,ElementName=indeterminateCheckBox, Path=IsChecked}"
-                >
-                <local:LottieProgressUI.IndeterminateAnimationSource>
-                    <local:LoadAnimation />
-                </local:LottieProgressUI.IndeterminateAnimationSource>
-                <local:LottieProgressUI.DeterminateAnimationSource>
-                    <local:LoadAnimation />
-                </local:LottieProgressUI.DeterminateAnimationSource>
-            </local:LottieProgressUI>
-        </StackPanel>
-
-        <StackPanel Grid.Column="3" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
-            <local:LottieProgressUI Width="200" Height="200"     
-                x:Name="CustomLottieProgressIndeterminate"
-                 >
-                <local:LottieProgressUI.IndeterminateAnimationSource>
-                    <local:LegoLoader />
-                </local:LottieProgressUI.IndeterminateAnimationSource>
-            </local:LottieProgressUI>
-        </StackPanel>-->
-
+        <!-- AnimatedIcon Samples -->
         <StackPanel Grid.Column="1" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
-            <local:AnimatedProgressUI Width="200" Height="200"     
-                x:Name="TestAnimatedProgressUI"
-                IsActive="{Binding Mode=OneWay,ElementName=isActiveCheckBox, Path=IsChecked}"
-                IsIndeterminate="{Binding Mode=OneWay,ElementName=indeterminateCheckBox, Path=IsChecked}"
-                ShowPaused="{Binding Mode=OneWay,ElementName=showPausedCheckBox, Path=IsChecked}"
-                ShowError="{Binding Mode=OneWay,ElementName=showErrorCheckBox, Path=IsChecked}"
-                ProgressPosition="{Binding Mode=OneWay,ElementName=progressSlider, Path=Value}"
-                >
-                <local:AnimatedProgressUI.AnimationSource>
-                    <local:LoadAnimation/>
-                </local:AnimatedProgressUI.AnimationSource>
-            </local:AnimatedProgressUI>
+            <local:AnimatedIcon Width="100"   
+                x:Name="TestAnimatedIcon"
+                IsAnimating="{Binding Mode=OneWay,ElementName=isAnimatingCheckBox, Path=IsChecked}"
+                IsLooping="{Binding Mode=OneWay,ElementName=isLoopingCheckBox, Path=IsChecked}"
+                ProgressPosition="{Binding Mode=OneWay,ElementName=progressSlider, Path=Value}">
+                <local:AnimatedIcon.Source>
+                    <local:IndeterminateRing/>
+                </local:AnimatedIcon.Source>
+            </local:AnimatedIcon>
         </StackPanel>
 
         <StackPanel Grid.Column="2" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
-            <local:AnimatedProgressUI Width="100" Height="100"     
-                x:Name="IsIndeterminateToggleProgressUI"
-                IsActive="{Binding Mode=OneWay,ElementName=isActiveCheckBox, Path=IsChecked}"
-                IsIndeterminate="{Binding Mode=OneWay,ElementName=indeterminateCheckBox, Path=IsChecked}"
-                ShowPaused="{Binding Mode=OneWay,ElementName=showPausedCheckBox, Path=IsChecked}"
-                ShowError="{Binding Mode=OneWay,ElementName=showErrorCheckBox, Path=IsChecked}"
-                ProgressPosition="{Binding Mode=OneWay,ElementName=progressSlider, Path=Value}"
-                >
-                <local:AnimatedProgressUI.AnimationSource>
-                    <local:DeterminateRing/>
-                </local:AnimatedProgressUI.AnimationSource>
-            </local:AnimatedProgressUI>
-        </StackPanel>
-        <StackPanel Grid.Column="3" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Top" Spacing="8">
-            <RadioButton x:Name="Default" Checked="HandleCustomStateToggle"
-     GroupName="CustomStateToggleGroup" Content="Default" />
-            <RadioButton x:Name="ShowError" Checked="HandleCustomStateToggle"
-     GroupName="CustomStateToggleGroup" Content="ShowError" />
-            <RadioButton x:Name="ShowSuccess" Checked="HandleCustomStateToggle"
-     GroupName="CustomStateToggleGroup" Content="ShowSuccess" />
-
-            <local:AnimatedProgressUI Width="100" Height="100"     
-                x:Name="CustomStateToggleProgressUI"
-                IsActive="{Binding Mode=OneWay,ElementName=isActiveCheckBox, Path=IsChecked}"
-                >
-                <local:AnimatedProgressUI.AnimationSource>
-                    <local:LoadingGenericState/>
-                </local:AnimatedProgressUI.AnimationSource>
-            </local:AnimatedProgressUI>
-        </StackPanel>
-
-        <StackPanel Grid.Column="4" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
-            <local:AnimatedProgressUI Width="200" Height="200"     
-                x:Name="IndeterminateProgressUI"
-                IsActive="{Binding Mode=OneWay,ElementName=isActiveCheckBox, Path=IsChecked}"
-                IsIndeterminate="True"
-                >
-                <local:AnimatedProgressUI.AnimationSource>
+            <local:AnimatedIcon Width="200"   
+                x:Name="OnPointerOverAnimatedIcon"
+                IsAnimating="False"
+                IsLooping="False"
+                PointerEntered="OnPointerOverAnimatedIcon_PointerEntered"
+                PointerExited="OnPointerOverAnimatedIcon_PointerExited">
+                <local:AnimatedIcon.Source>
                     <local:LegoLoader/>
-                </local:AnimatedProgressUI.AnimationSource>
-            </local:AnimatedProgressUI>
+                </local:AnimatedIcon.Source>
+            </local:AnimatedIcon>
         </StackPanel>
     </Grid>
 </Page>

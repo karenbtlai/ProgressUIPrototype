@@ -23,37 +23,14 @@ namespace ProgressUIPrototype
             this.InitializeComponent();
         }
 
-        private void indeterminateCheckbox_Click(object sender, RoutedEventArgs e)
+        private void OnPointerOverAnimatedIcon_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            if (IsIndeterminateToggleProgressUI.IsIndeterminate)
-            {
-                IsIndeterminateToggleProgressUI.AnimationSource = new IndeterminateRing();
-            }
-            else
-            {
-                IsIndeterminateToggleProgressUI.AnimationSource = new DeterminateRing();
-            }
+            OnPointerOverAnimatedIcon.IsAnimating = true;
         }
 
-        private void HandleCustomStateToggle(object sender, RoutedEventArgs e)
+        private void OnPointerOverAnimatedIcon_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            RadioButton rb = sender as RadioButton;
-
-            if (rb.Name == "ShowSuccess")
-            {
-                CustomStateToggleProgressUI.IsLooping = false;
-                CustomStateToggleProgressUI.AnimationSource = new LoadingSuccessState();
-            }
-            else if (rb.Name == "ShowError")
-            {
-                CustomStateToggleProgressUI.IsLooping = false;
-                CustomStateToggleProgressUI.AnimationSource = new LoadingErrorState();
-            }
-            else
-            {
-                CustomStateToggleProgressUI.IsLooping = true;
-                CustomStateToggleProgressUI.AnimationSource = new LoadingGenericState();
-            }
+            OnPointerOverAnimatedIcon.IsAnimating = false;
         }
     }
 

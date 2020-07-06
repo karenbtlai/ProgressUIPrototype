@@ -15,7 +15,7 @@ namespace ProgressUIPrototype
     {
         public AnimatedProgressUI()
         {
-            AnimatedVisualPlayerProposed player = new AnimatedVisualPlayerProposed();
+            AnimatedVisualPlayer player = new AnimatedVisualPlayer();
             Children.Add(player);
         }
 
@@ -122,7 +122,7 @@ namespace ProgressUIPrototype
         }
 
         public static readonly DependencyProperty AnimationSourceProperty =
-            DependencyProperty.Register("AnimationSource", typeof(IAnimatedVisualSource), typeof(AnimatedProgressUI), new PropertyMetadata(true, new PropertyChangedCallback(OnAnimationSourceChanged)));
+            DependencyProperty.Register("AnimationSource", typeof(IAnimatedVisualSource), typeof(AnimatedProgressUI), new PropertyMetadata(null, new PropertyChangedCallback(OnAnimationSourceChanged)));
 
         private static void OnAnimationSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
